@@ -17,6 +17,7 @@ void ExpenseManager::Render() const
 			cout << "2. 현재 자산 보기" << endl;
 			cout << "3. 자산 초기화" << endl;
 			cout << "4. 뒤로 가기" << endl;
+			cout << "입력 = "
 			break;
 		case MENU_INPUT:
 			cout << "자산을 입력하십시오." << endl;
@@ -28,6 +29,7 @@ void ExpenseManager::Render() const
 			break;
 		case MENU_INIT:
 			cout << "자산 정보를 초기화 했습니다." << endl;
+			system( "pause" );
 			break;
 	}
 }
@@ -62,6 +64,7 @@ void ExpenseManager::Update( bool* isRun )
 		default:
 			cout << "잘못된 입력입니다. 초기화면으로 돌아갑니다." << endl;
 			*isRun = false;
+			system( "pause" );
 	}
 	cin.clear();
 }

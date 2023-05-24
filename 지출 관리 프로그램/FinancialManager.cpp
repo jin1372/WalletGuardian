@@ -15,6 +15,7 @@ void FinancialManager::Render() const
 			cout << "3. 지출 내역" << endl;
 			cout << "4. 추천 지출량 등록" << endl;
 			cout << "5. 뒤로 가기" << endl;
+			cout << "입력 = ";
 			break;
 	}
 }
