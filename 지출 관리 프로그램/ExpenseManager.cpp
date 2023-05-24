@@ -17,7 +17,7 @@ void ExpenseManager::Render() const
 			cout << "2. 현재 자산 보기" << endl;
 			cout << "3. 자산 초기화" << endl;
 			cout << "4. 뒤로 가기" << endl;
-			cout << "입력 = "
+			cout << "입력 = ";
 			break;
 		case MENU_INPUT:
 			cout << "자산을 입력하십시오." << endl;

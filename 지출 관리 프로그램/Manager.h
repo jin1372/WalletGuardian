@@ -11,12 +11,6 @@ namespace {
 using namespace std;
 };
 
-
-class Factory;
-class ExpenseManager;
-class FinancialManager;
-class SavingsManager;
-
 class Manager
 {
 	friend class ExpenseManager;
@@ -39,14 +33,14 @@ public:
 	static Manager& getInstance();
 
 private:
-
 	Factory* root = nullptr;
 	
 	// 총 자산
 	int mAsset = 0;		
-	
 	// 지출 관리
 	std::unordered_map<std::string, int> mRecords;
+	// 저금 관리
+	std::unordered_map<std::string, int> mSavingsList;
 
 	Interface mSequence = FIRST;
 
