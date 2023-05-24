@@ -70,7 +70,7 @@ void SavingsManager::addSavings() noexcept
 	{
 		manager.mAsset = manager.mAsset - savingAmount;
 		manager.mTotalSavings = manager.mTotalSavings + savingAmount;
-		manager.mRecords.insert( unordered_map<string, int>::value_type( date, savingAmount ) );
+		manager.mSavingsList.insert( unordered_map<string, int>::value_type( date, savingAmount ) );
 		cout << date << ", " << savingAmount << "원을 저금했습니다." << endl;
 	}
 	else
