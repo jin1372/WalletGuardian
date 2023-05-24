@@ -19,10 +19,9 @@ public:
 private:
 	// 자산 관련 인터페이스
 	void inputAssets( int amount ) noexcept;
-	int currentAssets() const noexcept;
+	void currentAssets() const noexcept;
 	void initAssets() noexcept;
 	
 private:
 	Menu mCurrSequence = MENU_SELECT;
-
 };

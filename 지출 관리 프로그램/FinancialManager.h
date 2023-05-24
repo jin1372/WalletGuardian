@@ -21,10 +21,10 @@ public:
 
 private:
 	// 지출 관련 인터페이스
-	void addExpense();          // 지출을 추가하는 함수
-	void removeExpense();       // 지출을 제거하는 함수
-	void expenseList();         // 지출 내역
-	void recommendedExpense();  // 적절한 추천 지출량을 표시하는 변수
+	void addExpense() noexcept;          // 지출을 추가하는 함수
+	void removeExpense() noexcept;       // 지출을 제거하는 함수
+	void expenseList() const noexcept;   // 지출 내역
+	void recommendedExpense() noexcept;  // 적절한 추천 지출량을 표시하는 변수
 
 private:
 	Menu mCurrSequence = MENU_SELECT;

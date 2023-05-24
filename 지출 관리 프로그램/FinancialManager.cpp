@@ -55,7 +55,7 @@ void FinancialManager::Update( bool* isRun )
 	}
 }
 
-void FinancialManager::addExpense()
+void FinancialManager::addExpense() noexcept
 {
 	auto& manager = Manager::getInstance();
 	std::string date;
@@ -71,9 +71,10 @@ void FinancialManager::addExpense()
 	cout << "지출 금액을 입력하십시오." << endl;
 	cout << "입력 = "; cin >> expenseAmount; 
 	
-	if ( expenseAmount <= manager.mAsset )
+	if ( expenseAmount <= manager.mAsset - manager.mTotalSavings )
 	{
 		manager.mAsset = manager.mAsset - expenseAmount;
+		manager.mTotalExpense += expenseAmount;
 		manager.mRecords.insert( unordered_map<string, int>::value_type( date, expenseAmount ) );
 	} 
 	else
@@ -84,7 +85,7 @@ void FinancialManager::addExpense()
 
 }
 
-void FinancialManager::removeExpense()
+void FinancialManager::removeExpense() noexcept
 {
 	auto& manager = Manager::getInstance();
 	std::string date;
@@ -95,19 +96,29 @@ void FinancialManager::removeExpense()
 	cout << "입력 = ";
 	getline( cin, date );
 
-	int amount = 0;
-	amount = manager.mRecords[date];
-
-	manager.mAsset += amount;
-
-	manager.mRecords.erase( date );
+	if ( manager.mRecords.find( date ) != manager.mRecords.end() )
+	{
+		int amount = 0;
+		amount = manager.mRecords[date];
+		manager.mAsset += amount;
+		manager.mTotalExpense -= amount;
+		manager.mRecords.erase( date );
+		cout << date << ", " << amount << "원을 지출 내역에서 제거했습니다." << endl;
+	}
+	else
+	{
+		cout << "해당 날짜에 등록된 지출이 없습니다." << endl;
+	}
+	system( "pause" );
 }
 
-void FinancialManager::expenseList()
+void FinancialManager::expenseList() const noexcept
 {
-	auto& manager = Manager::getInstance();
+	const auto& manager = Manager::getInstance();
 	system( "cls" );
 	cout << "[ ## 지출 내역 ## ]" << endl;
+	cout << "# 총 지출액: " << manager.mTotalExpense << "원" << endl;
+	cout << endl;
 	if ( manager.mRecords.size() )
 	{
 		for ( const auto& o : manager.mRecords )
@@ -122,7 +133,7 @@ void FinancialManager::expenseList()
 	system( "pause" );
 }
 
-void FinancialManager::recommendedExpense()
+void FinancialManager::recommendedExpense() noexcept
 {
 
 }

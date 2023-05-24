@@ -37,6 +37,11 @@ private:
 	
 	// 총 자산
 	int mAsset = 0;		
+	// 총 저금액
+	int mTotalSavings = 0;
+	// 총 지출액
+	int mTotalExpense = 0;
+
 	// 지출 관리
 	std::unordered_map<std::string, int> mRecords;
 	// 저금 관리

@@ -18,13 +18,11 @@ public:
 
 private:
 	//// 저금 관련 인터페이스
-	void addSavings();    // 저금을 추가하는 함수
-	void removeSavings(); // 저금을 제거하는 함수
-	void showSavings();   // 저금 내역을 표시하는 함수
+	void addSavings() noexcept;          // 저금을 추가하는 함수
+	void removeSavings() noexcept;       // 저금을 제거하는 함수
+	void showSavings() const noexcept;   // 저금 내역을 표시하는 함수
 
 private:
 	Menu mCurrSequence = MENU_SELECT;
-
-
 };
 

@@ -49,7 +49,7 @@ void ExpenseManager::Update( bool* isRun )
 			mCurrSequence = MENU_SELECT;
 			break;
 		case MENU_CURRENT: 
-			cout << currentAssets() << endl;
+			currentAssets();
 			mCurrSequence = MENU_SELECT;
 			system( "pause" );
 			break;
@@ -74,10 +74,15 @@ void ExpenseManager::inputAssets( int amount ) noexcept
 	auto& m = Manager::getInstance();
 	m.mAsset = amount;
 }
-int ExpenseManager::currentAssets() const noexcept
+void ExpenseManager::currentAssets() const noexcept
 {
 	auto& m = Manager::getInstance();
-	return m.mAsset;
+	system( "cls" );
+	cout << "[ ## 자산 매니저 ## ]" << endl;
+
+	cout << "# 총 자산: "   << m.mAsset        << "원" << endl;
+	cout << "# 총 지출액: " << m.mTotalExpense << "원" << endl;
+	cout << "# 총 저금액: " << m.mTotalSavings << "원" << endl;
 }
 void ExpenseManager::initAssets() noexcept
 {
