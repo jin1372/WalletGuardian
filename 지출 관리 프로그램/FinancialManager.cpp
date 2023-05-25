@@ -1,5 +1,6 @@
 #include "FinancialManager.h"
 #include "Manager.h"
+#include <map>
 
 void FinancialManager::Render() const
 {
@@ -69,6 +70,7 @@ void FinancialManager::addExpense() noexcept
 	getline( cin, date );
 
 	cout << "지출 금액을 입력하십시오." << endl;
+	cout << "# 추천 지출 금액: " << manager.mSugOutlay << "원" << endl;
 	cout << "입력 = "; cin >> expenseAmount; 
 	
 	if ( expenseAmount <= manager.mAsset - manager.mTotalSavings )
@@ -121,7 +123,12 @@ void FinancialManager::expenseList() const noexcept
 	cout << endl;
 	if ( manager.mRecords.size() )
 	{
+		map<string, int> out;
 		for ( const auto& o : manager.mRecords )
+		{
+			out.insert( make_pair( o.first, o.second ) );
+		}
+		for ( const auto& o : out )
 		{
 			cout << o.first << " : " << o.second << "원" << endl;
 		}
@@ -135,7 +142,16 @@ void FinancialManager::expenseList() const noexcept
 
 void FinancialManager::recommendedExpense() noexcept
 {
-
+	auto& manager = Manager::getInstance();
+	system( "cls" );
+	int select = 0;
+	cout << "[ ## 추천 지출량 등록 ## ]" << endl;
+	cout << "표시할 추천 지출 금액을 입력하십시오." << endl;
+	cout << "입력 = ";
+	cin >> select;
+	manager.mSugOutlay = select;
+	cout << "# 추천 지출량을 " << select << "원으로 등록하였습니다." << endl;
+	system( "pause" );
 }
 
 

@@ -1,5 +1,6 @@
 #include "SavingsManager.h"
 #include "Manager.h"
+#include <map>
 
 void SavingsManager::Render() const
 {
@@ -118,7 +119,12 @@ void SavingsManager::showSavings() const noexcept
 	cout << "# 총 저금액: " << manager.mTotalSavings << "원" << endl;
 	if ( manager.mSavingsList.size() )
 	{
+		map<string, int> out;
 		for ( const auto& o : manager.mSavingsList )
+		{
+			out.insert( make_pair( o.first, o.second ) );
+		}
+		for ( const auto& o : out )
 		{
 			cout << o.first << " : " << o.second << "원" << endl;
 		}

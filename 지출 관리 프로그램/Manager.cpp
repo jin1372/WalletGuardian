@@ -16,7 +16,8 @@ void Manager::Render() const
 			cout << "1. 자산 관리 매니저" << endl;
 			cout << "2. 지출 관리 매니저" << endl;
 			cout << "3. 저금 관리 매니저" << endl;
-			cout << "4. 프로그램 종료" << endl;
+			cout << "4. 저장하기" << endl;
+			cout << "5. 프로그램 종료" << endl;
 			cout << "입력 = ";
 			break;
 
@@ -100,6 +101,7 @@ bool Manager::saveData( const std::string& fileName )
 	m.add( mAsset );
 	m.add( mTotalExpense );
 	m.add( mTotalSavings );
+	m.add( mSugOutlay );
 	system( "cls" );
 	cout << "세이브 중 30%" << endl;
 
@@ -150,10 +152,11 @@ bool Manager::loadData( const std::string& fileName )
 			string text = m.read( i );
 			if ( text == "-main" )
 			{
-				mAsset = stoi( m.read( i + 1 ) );
+				mAsset        = stoi( m.read( i + 1 ) );
 				mTotalExpense = stoi( m.read( i + 2 ) );
 				mTotalSavings = stoi( m.read( i + 3 ) );
-				i += 3;
+				mSugOutlay    = stoi( m.read( i + 4 ) );
+				i += 4;
 			}
 
 			if ( text == "-records" )
@@ -178,11 +181,12 @@ bool Manager::loadData( const std::string& fileName )
 				for ( j = 1; j < size; ++j )
 				{
 					text = m.read( i + j );
-					if ( text == "-end" )
+					if ( text == "-end" || text == "-1" )
 					{
 						text.clear();
 						i += ( j - 1 );
-						break;
+						m.clear();
+						return true;
 					}
 					int savingAmount = stoi( m.read( i + j + 1 ) );
 					mSavingsList.insert( unordered_map<string, int>::value_type( text, savingAmount ) );

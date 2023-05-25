@@ -46,6 +46,8 @@ private:
 	int mTotalSavings = 0;
 	// 총 지출액
 	int mTotalExpense = 0;
+	// 추천 지출량
+	int mSugOutlay = 0;
 
 	// 지출 관리
 	std::unordered_map<std::string, int> mRecords;
