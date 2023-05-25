@@ -24,7 +24,8 @@ public:
 		EXPENSE   = 1,
 		FINANCIAL = 2,
 		SAVINGS   = 3,
-		END       = 4,
+		SAVE      = 4,
+		END       = 5,
 	};
 public:
 	void Render() const;

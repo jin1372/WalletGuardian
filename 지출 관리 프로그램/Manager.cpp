@@ -61,6 +61,10 @@ void Manager::Update( bool* isRun )
 			}
 			root->Update( &isOn );
 			break;
+		case SAVE:
+			saveData( "data/data.txt" );
+			isOn = false;
+			break;
 		case END:
 			if ( root )
 				delete root;
@@ -89,11 +93,15 @@ bool Manager::saveData( const std::string& fileName )
 {
 	auto& m = FileManager::getInstance();
 
+	system( "cls" );
+	cout << "세이브 중 0%" << endl;
 	// 각 정보들을 파일에 입력
 	m.add( "-main" );
 	m.add( mAsset );
 	m.add( mTotalExpense );
 	m.add( mTotalSavings );
+	system( "cls" );
+	cout << "세이브 중 30%" << endl;
 
 	// 지출 내역 파일에 입력
 	m.add( "-records" );
@@ -102,6 +110,8 @@ bool Manager::saveData( const std::string& fileName )
 		m.add( o.first );
 		m.add( o.second );
 	}
+	system( "cls" );
+	cout << "세이브 중 70%" << endl;
 
 	// 저금 내역 파일에 입력
 	m.add( "-savings" );
@@ -110,9 +120,15 @@ bool Manager::saveData( const std::string& fileName )
 		m.add( o.first );
 		m.add( o.second );
 	}
+	system( "cls" );
+	cout << "세이브 중 100%" << endl;
 
 	m.saveFile( fileName );
 	m.clear();
+
+	system( "cls" );
+	cout << "## 세이브 완료 ##" << endl;
+	system( "pause" );
 
 	return true;
 }

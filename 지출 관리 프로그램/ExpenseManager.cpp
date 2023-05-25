@@ -72,7 +72,16 @@ void ExpenseManager::Update( bool* isRun )
 void ExpenseManager::inputAssets( int amount ) noexcept
 {	
 	auto& m = Manager::getInstance();
-	m.mAsset = amount;
+	if ( m.mAsset <= 0 )
+	{
+		m.mAsset = amount;
+	}
+	else
+	{
+		system( "cls" );
+		cout << "## 이미 자산이 등록되어 있습니다." << endl;
+		system( "pause" );
+	}
 }
 void ExpenseManager::currentAssets() const noexcept
 {
@@ -88,4 +97,8 @@ void ExpenseManager::initAssets() noexcept
 {
 	auto& m = Manager::getInstance();
 	m.mAsset= 0;
+	m.mTotalExpense = 0;
+	m.mTotalSavings = 0;
+	m.mRecords.clear();
+	m.mSavingsList.clear();
 }
