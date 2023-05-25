@@ -90,9 +90,26 @@ bool Manager::saveData( const std::string& fileName )
 	auto& m = FileManager::getInstance();
 
 	// 각 정보들을 파일에 입력
+	m.add( "-main" );
 	m.add( mAsset );
 	m.add( mTotalExpense );
 	m.add( mTotalSavings );
+
+	// 지출 내역 파일에 입력
+	m.add( "-records" );
+	for ( const auto& o : mRecords )
+	{
+		m.add( o.first );
+		m.add( o.second );
+	}
+
+	// 저금 내역 파일에 입력
+	m.add( "-savings" );
+	for ( const auto& o : mSavingsList )
+	{
+		m.add( o.first );
+		m.add( o.second );
+	}
 
 	m.saveFile( fileName );
 	m.clear();
@@ -107,9 +124,57 @@ bool Manager::loadData( const std::string& fileName )
 	// 파일을 정상적으로 불러왔을 경우
 	if ( m.loadFile( fileName ) )
 	{
-		mAsset = stoi( m.read( 0 ) );
-		mTotalExpense = stoi( m.read( 1 ) );
-		mTotalSavings = stoi( m.read( 2 ) );
+		size_t size = m.size();
+
+		// 파일 읽기 시작
+		int j = 0;
+		for ( int i = 0; i < size; ++i )
+		{
+			int turn = 0;
+			string text = m.read( i );
+			if ( text == "-main" )
+			{
+				mAsset = stoi( m.read( i + 1 ) );
+				mTotalExpense = stoi( m.read( i + 2 ) );
+				mTotalSavings = stoi( m.read( i + 3 ) );
+				i += 3;
+			}
+
+			if ( text == "-records" )
+			{
+				for ( j = 1; j < size; ++j )
+				{
+					text = m.read( i + j );
+					if ( text == "-savings" )
+					{
+						text.clear();
+						i += (j - 1);
+						break;
+					}
+					int expenseAmount = stoi( m.read( i + j + 1 ) );
+					mRecords.insert( unordered_map<string, int>::value_type( text, expenseAmount ) );
+					j += 1;
+				}
+			}
+
+			if ( text == "-savings" )
+			{
+				for ( j = 1; j < size; ++j )
+				{
+					text = m.read( i + j );
+					if ( text == "-end" )
+					{
+						text.clear();
+						i += ( j - 1 );
+						break;
+					}
+					int savingAmount = stoi( m.read( i + j + 1 ) );
+					mSavingsList.insert( unordered_map<string, int>::value_type( text, savingAmount ) );
+					j += 1;
+				}
+			}
+		}
+
 		m.clear();
 		return true;
 	}

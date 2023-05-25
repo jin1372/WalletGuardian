@@ -25,6 +25,10 @@ public:
 	bool saveFile( const std::string& fileName );
 	bool loadFile( const std::string& fileName );
 	
+public:
+	// 읽어온 파일의 라인 수
+	inline size_t size() const { return mData.size(); }
+
 private:
 	static std::unique_ptr<FileManager> instance;
 
