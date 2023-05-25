@@ -7,6 +7,7 @@
 int main()
 {
 	Manager& manager = Manager::getInstance();
+	manager.loadData( "../data/data.txt" );
 
 	bool isRun = true;
 	while ( isRun )

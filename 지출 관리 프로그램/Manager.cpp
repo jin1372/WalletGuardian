@@ -1,4 +1,5 @@
 #include "Manager.h"
+#include "FileManager.h"
 
 std::unique_ptr<Manager> Manager::instance = nullptr;
 
@@ -84,14 +85,39 @@ Manager& Manager::getInstance()
 	return *instance;
 }
 
-bool Manager::saveData()
+bool Manager::saveData( const std::string& fileName )
 {
+	auto& m = FileManager::getInstance();
 
-	return false;
+	// 각 정보들을 파일에 입력
+	m.add( mAsset );
+	m.add( mTotalExpense );
+	m.add( mTotalSavings );
+
+	m.saveFile( fileName );
+	m.clear();
+
+	return true;
 }
 
-bool Manager::loadData()
+bool Manager::loadData( const std::string& fileName )
 {
+	auto& m = FileManager::getInstance();
 
-	return false;
+	// 파일을 정상적으로 불러왔을 경우
+	if ( m.loadFile( fileName ) )
+	{
+		mAsset = stoi( m.read( 0 ) );
+		mTotalExpense = stoi( m.read( 1 ) );
+		mTotalSavings = stoi( m.read( 2 ) );
+		m.clear();
+		return true;
+	}
+
+	// 파일 읽기에 실패했을 경우
+	else
+	{
+		return false;
+	}
+
 }

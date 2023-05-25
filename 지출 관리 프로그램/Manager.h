@@ -32,9 +32,9 @@ public:
 
 	static Manager& getInstance();
 
-protected:
-	bool saveData();
-	bool loadData();
+public:
+	bool saveData( const std::string& fileName );
+	bool loadData( const std::string& fileName );
 
 private:
 	Factory* root = nullptr;
