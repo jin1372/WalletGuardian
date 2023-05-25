@@ -83,3 +83,15 @@ Manager& Manager::getInstance()
 	}
 	return *instance;
 }
+
+bool Manager::saveData()
+{
+
+	return false;
+}
+
+bool Manager::loadData()
+{
+
+	return false;
+}

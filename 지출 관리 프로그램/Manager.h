@@ -32,6 +32,10 @@ public:
 
 	static Manager& getInstance();
 
+protected:
+	bool saveData();
+	bool loadData();
+
 private:
 	Factory* root = nullptr;
 	
